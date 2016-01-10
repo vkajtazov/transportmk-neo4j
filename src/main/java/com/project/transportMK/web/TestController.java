@@ -3,14 +3,12 @@ package com.project.transportMK.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.neo4j.core.EntityPath;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.transportMK.service.LineService;
 import com.project.transportMK.service.StationService;
-import com.tp.springdata.neo4j.model.BaseEntity;
 import com.tp.springdata.neo4j.model.Line;
 import com.tp.springdata.neo4j.model.Station;
 
@@ -64,7 +62,7 @@ public class TestController {
 	}
 
 	@RequestMapping(value = "find", method = RequestMethod.GET, produces = "application/json")
-	public List<BaseEntity> find() {
+	public List<Station> find() {
 		return lineService.getPath("GVG", "BT");
 	}
 

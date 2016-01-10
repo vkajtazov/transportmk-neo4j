@@ -3,15 +3,12 @@ package com.project.transportMK.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.neo4j.graphdb.Path;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.neo4j.core.EntityPath;
 import org.springframework.stereotype.Service;
 
 import com.project.transportMK.service.LineService;
 import com.tp.springdata.neo4j.dao.RelationRepository;
 import com.tp.springdata.neo4j.dao.StationRepository;
-import com.tp.springdata.neo4j.model.BaseEntity;
 import com.tp.springdata.neo4j.model.Line;
 import com.tp.springdata.neo4j.model.Station;
 
@@ -30,9 +27,13 @@ public class LineServiceImpl implements LineService {
 	}
 
 	@Override
-	public List<BaseEntity> getPath(String start, String end) {
-		List<BaseEntity> shortestPath = stationRepo.getShortestPath(start, end);
-		return shortestPath;
+	public List<Station> getPath(String start, String end) {
+		ArrayList<Station> stations = new ArrayList<Station>();
+		int[] shortestPath = stationRepo.getShortestPath(start, end);
+		for (int i : shortestPath) {
+			stations.add(stationRepo.findByStationId((long) shortestPath[i]));
+		}
+		return stations;
 	}
 
 }
